@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="bootstrap/jquery.js"></script>
+    <style>
+
+        .current{
+            background-color: #0f6674;
+        }
+    </style>
+    <script>
+
+        window.onload=function () {
+
+            new Vue({
+                el:'#container',
+                data:{
+                    msg:'hi,world'
+                },
+                methods:{
+                    update(){
+                        this.msg="hi";
+                    },
+                    destroy(){
+                        this.$destroy();
+                    }
+                },
+                beforeCreate(){
+                    console.log("before-create");
+                },
+                create(){
+                    console.log("create");
+                },
+                beforeMount(){
+                    console.log("beforeMount");
+                },
+                mounted(){
+                    console.log("mounted");
+                },
+                beforeUpdate(){
+                    console.log("beforeUpdate");
+                },
+                updated(){
+                    console.log("updated");
+                },
+                beforeDestroy(){
+                    console.log("beforeDestroy");
+                },
+                destroyed(){
+                    console.log("destroyed");
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div id="container">
+
+    {{msg}}
+
+    <button @click="update">update</button>
+    <button @click="destroy">destroy</button>
+</div>
+</body>
+</html>

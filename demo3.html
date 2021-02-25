@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload = function () {
+
+            var vm = new Vue({
+                el:'#ix',
+                data:{
+                    nums:[1,2,3,4,5,6],
+                    users:{id:1,name:"jack",age:100,city:"贵阳"},
+                    id:[1,2,3,4,5,6,1,2],
+                    info:[
+                        {id:1,name:"jack",age:100,city:"贵阳"},
+                        {id:2,name:"tom",age:200,city:"北京"},
+                        {id:3,name:"lucy",age:300,city:"上海"},
+                    ]
+                }
+            });
+
+
+            let user={
+                "0":"jack",
+                "1":"tom",
+                length:2
+            };
+            console.log(Array.from(user));
+            console.log(Array.from("jack",x=>x.toUpperCase()));
+            console.log(Array.from("jack",function(){
+
+                return this.name;
+
+            },{"name":"老人机"}));
+
+            function test()
+            {
+                console.log(Array.from(arguments));
+            }
+            test(1,2,3,"jack");
+
+            console.log(Array.of(19,20));
+
+            console.log(Array);
+
+            for(let item in Array)
+            {
+                console.log(Array[item]);
+            }
+
+
+            let arr2=[1,2,"jack"];
+            // for(let [k,v] of arr2.entries())
+            // {
+            //     console.log(k,v);
+            // }
+            // for (let k of arr2.keys())
+            // {
+            //     console.log(k);
+            // }
+            // for (let k of arr2.values())
+            // {
+            //     console.log(k);
+            // }
+
+            console.log(arr2.find(x=>x.length==4));
+            console.log(arr2.find(function (x) {
+                return x.length==4;
+            }))
+
+            console.log(arr2.findIndex(x=>x.length==4));
+
+            arr2.copyWithin(1,3,3);
+            console.log(arr2);
+
+            let arr3 = [0,0,0,0,0];
+            arr3.fill(1,2,3);
+            console.log(arr3);
+        }
+    </script>
+</head>
+<body>
+
+<div id="ix">
+    {{nums}}
+
+    <!--<ul>-->
+        <!--<li v-for="value in nums">{{value}}</li>-->
+    <!--</ul>-->
+
+    <!--<ul>-->
+        <!--<li v-for="value in users">{{value}}</li>-->
+    <!--</ul>-->
+
+    <!--<ul>-->
+        <!--<li v-for="(k,v) in users">{{k}}=={{v}}</li>-->
+    <!--</ul>-->
+
+    <!--<ul>-->
+        <!--<li v-for="(v,k) in nums">{{k}}&#45;&#45;{{v}}</li>-->
+    <!--</ul>-->
+
+    <!--<br/>-->
+    <!--<ul>-->
+        <!--<li v-for="(k,v) in id">{{k}}=={{v}}</li>-->
+    <!--</ul>-->
+    <!--<ul>-->
+        <!--<li v-for="(k,v) in id" :key="k">{{k}}=={{v}}</li>-->
+    <!--</ul>-->
+
+    <ul>
+        <li v-for="(user,index) in info">
+            {{index}} == {{user.id}}  -- {{user.name}}  --{{user.age}}  --{{user.city}}
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

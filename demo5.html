@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="bootstrap/jquery.js"></script>
+    <script src="bootstrap/bootstrap.js.js"></script>
+    <link href="bootstrap/bootstrap.css" rel="stylesheet">
+    <script>
+        window.onload = function () {
+
+            var vm = new Vue({
+                el:'.container',
+                data:{
+                    user:{},
+                    users:[
+                        {name:"jack",age:100,email:"jack@qq.com"},
+                        {name:"tom",age:200,email:"tom@qq.com"},
+                    ]
+                },
+                methods:{
+                    addUser(){
+                        this.users.push(this.user);
+                        this.user={};
+                    },
+                    deleteUser(index){
+                        console.log(index);
+
+                        if(index==0){
+                            this.users = [];
+                        }else{
+                            console.log(this.users[index]);
+                            this.users.splice(index,1);
+                        }
+
+                    },
+                    files(ev){
+                        console.log(ev);
+                    }
+                }
+
+            });
+
+
+            let ab1 = new ArrayBuffer(10);
+            console.log(ab1.byteLength);
+
+            let ab2 = ab1.slice(2,5);
+            console.log(ab2.byteLength);
+
+            console.log(ab1);
+
+            let ab3 = new Int8Array(100);
+
+            console.log(ab3.byteLength);
+
+            console.log(ArrayBuffer.isView(ab3));
+
+
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>添加用户</h2>
+    <form >
+        <label>姓名：</label>
+        <input type="text" id="name" v-model="user.name" placeholder="姓名"/>
+        <br/>
+        <label>年龄：</label>
+        <input type="text" id="age" v-model="user.age" placeholder="年龄"/>
+        <br/>
+        <label>邮箱：</label>
+        <input type="text" id="email" v-model="user.email" placeholder="邮箱"/>
+        <br/>
+        <label>文件：</label>
+        <input type="file" id="file"  placeholder="file" v-on:change="files(e)"/>
+
+        <br/>
+        <input type="button" class="btn btn-primary" value="Add" v-on:click="addUser"/>
+        <input type="reset" class="btn btn-primary" value="Reset"/>
+    </form>
+
+    <hr/>
+    <table class="table table-bordered table-hover">
+        <caption class="h3 text-center text-info">User List</caption>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(user,index) in users">
+                <td>{{index+1}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.age}}</td>
+                <td>{{user.email}}</td>
+                <td><button class="btn btn-danger" v-on:click="deleteUser(index)">Remove</button></td>
+            </tr>
+            <tr>
+                <button class="btn btn-danger" v-on:click="deleteUser(0)">Remove All</button>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

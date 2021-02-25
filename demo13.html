@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    class User{
+        constructor(name){
+            this._name = name;
+        }
+        getName(){
+            return this._name;
+        }
+        static getInfo()
+        {
+            console.log("static getInfo"+this._name);
+        }
+
+        set name(v){
+            this._name=v;
+        }
+        get name(){
+            return this._name;
+        }
+
+        static set age(v)
+        {
+            User._age= v;
+        }
+        static get age()
+        {
+            return User._age;
+        }
+    }
+    User.age=300;
+    let user1 = new User("jack");
+    console.log(user1);
+    console.log(User.age);
+
+    console.log(user1.getName());
+    console.log(User.getInfo());
+
+    let user2 = new User("tom");
+    user2.name="lucy";
+    console.log(user2.name);
+
+
+    console.log("*************************************");
+
+    class Parent
+    {
+        constructor(name){
+            this.name=name;
+        }
+        getName()
+        {
+            console.log(this.name);
+        }
+        static show(){
+            console.log("parent show");
+        }
+    }
+    class Son extends Parent{
+        constructor(name){
+            super(name);
+        }
+        getChild()
+        {
+            console.log("son getchild");
+        }
+        getName() {
+            console.log("son getName");
+            super.getName();
+        }
+    }
+    Parent.age=100;
+    let son1 = new Son("test");
+    console.log(son1.name);
+    son1.getName();
+    son1.getChild();
+
+    Son.show();
+</script>
+</body>
+</html>

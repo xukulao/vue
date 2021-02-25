@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script>
+
+        Vue.config.keyCodes = {
+            a:65,
+            f1:112
+        };
+        window.onload = function () {
+
+            var vm = new Vue({
+                el:'#ix',
+                data:{
+                    nums:[1,2,3,4,5,6],
+                    flag:true,
+                },
+                methods:{
+                    show(e){
+
+                        console.log(e.keyCode);
+                        console.log(String.fromCharCode(e.keyCode));
+
+                        if(e.keyCode==13){
+                            console.log("回车");
+                        }
+                    },
+                    show1(){
+                        console.log("回车2");
+                    },
+                    show2(){
+                        console.log("回车3enter");
+                    },
+                    up(){
+                        console.log("up");
+                    },
+                    down(){
+                        console.log("down");
+                    },
+                    left(){
+                        console.log("left");
+                    },
+                    right(){
+                        console.log("right");
+                    },
+                    a(){
+                        console.log("a");
+                    }
+                }
+
+            });
+
+
+            let ab1 = new ArrayBuffer(16);//16Bytes
+            let ab2 = new Int8Array(ab1);//8Bit 1Bytes  =16Bytes 1个元素占1个字节
+            let ab3 = new Int16Array(ab1);//16bit 2Bytes  =8 Bytes  1个元素中2个字节
+
+            ab2[0] = 100;
+            ab2[1] = 20;
+            ab2[2] = 10;
+
+            console.log(ab2);
+
+            console.log(ab3);
+
+            let x1=100;//0110 0100 0000 0000
+            let x2=20;
+            let x3=0;
+            x3|=x1<<8;
+            x3|=x2<<0;
+            console.log(x3);
+
+
+            let ab4 = new Int8Array(ab1,1,2);//第一个元素不要
+            console.log(ab4);
+
+            let ab5 = new Int8Array([100,20,60]);
+            for (let x of ab5){
+                console.log(x);
+            }
+            console.log("+++++++++++++++++++++++++++++++++++\r\n");
+            console.log(ab5.BYTES_PER_ELEMENT);
+            let ab6 = new Int8Array(32);//32个元素，每个元素8bit
+            console.log(ab6);
+
+            ab6.set([1,2,3]);
+            console.log(ab6);
+            console.log(ab6.buffer);
+        }
+    </script>
+</head>
+<body>
+
+<div id="ix">
+  <input type="text" @keydown="show($event)"/>
+  <input type="text" @keydown.down="show1()"/>
+  <!--<input type="text" @keydown.13="show2()"/>-->
+  <input type="text" @keydown.enter="show2()"/>
+  <input type="text" @keydown.up="up()"/>
+  <input type="text" @keydown.down="down()"/>
+  <input type="text" @keydown.left="left()"/>
+  <input type="text" @keydown.right="right()"/>
+
+
+  <input type="text" @keyup.a="a()"/>
+  <input type="text" @keypress.a="a()"/>
+  <input type="text" @keydown.a="a()" placeholder="aaa"/>
+  <!--<input type="text" @keydown.f1="a()"/>-->
+
+
+
+</div>
+
+</body>
+</html>

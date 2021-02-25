@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script src="js/vue.js"></script>
+    <script src="bootstrap/jquery.js"></script>
+    <script>
+
+        window.onload = function (e) {
+            new Vue({
+                el:'#container',
+                data:{
+                   uid:'',
+                   user:{
+
+                    }
+                },
+                filters:{
+                    number:(data,n)=>{
+                        return '=='+data.toFixed(n);
+                    }
+                },
+                methods:{
+                    show(){
+                        $.ajax({
+                            method:"GET",
+                            url:"demo.txt",
+                            success:function (response) {
+                                console.log(response);
+                            },
+                            error:function (resp) {
+                                console.log(resp);
+                            }
+                        })
+                    },
+                    getUserById(uid){
+                        console.log(uid);
+                        console.log(this.uid);
+
+                        let that = this;
+                        $.ajax({
+                            url:`https://api.github.com/users/${uid}`,
+                            method:'get',
+                            success:function (resp) {
+                                console.log(resp)
+                                that.user = resp;
+
+                            }
+                        })
+                    },
+                    getp(){
+                        //https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?json=1&cb=cbFun&wd=a
+                        $.ajax({
+                            url:'http://132.232.0.172:9501/api/contact/us',
+                            //dataType:'jsonp',
+                            data:{
+                                'json':1,
+                                'wd':'a'
+                            },
+                            type:'get',
+                            //jsonp:'cb',
+                            success:function (resp) {
+                                console.log(resp)
+
+
+                            },
+                            error:function (err) {
+                                console.log(err);
+                            }
+                        })
+                    }
+                },
+                created(){
+                    console.log("created");
+
+                }
+            });
+
+
+        }
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+<div id="container">
+
+    githubId:
+    <input type="text" v-model="uid">
+    <button @click="getUserById(uid)">github userinfo</button>
+    <br/>
+    userName:{{user.name}}
+    <br/>
+    头像：<img :src="user.avatar_url"/>
+
+    <hr/>
+    <button @click="getp">jsonp跨域请求</button>
+</div>
+</body>
+</html>

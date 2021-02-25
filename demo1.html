@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload = function () {
+
+            var vm = new Vue({
+                el:'#ix',
+                data:{
+                    msg:"hi,world"
+                }
+            });
+
+            let name="jacks";
+            console.log(name.startsWith("ja"));
+            console.log(name.startsWith("ja",0));
+
+            console.log(name.endsWith("ks"));
+            console.log(name.includes("c",0))
+
+            console.log(name.repeat(3));
+
+            console.log("name\n");
+
+            console.log(String.raw `name\n`);
+            console.log(`name\n`);
+
+            let reg=/abc/gi;
+
+            console.log(reg.flags);
+
+            let f=({name:name,age:age})=>{
+                console.log(vm);
+                console.log(name,age);
+            };
+            f({name:"jack",age:100});
+
+        }
+    </script>
+</head>
+<body>
+
+<div id="ix">
+    {{msg}}
+</div>
+
+</body>
+</html>

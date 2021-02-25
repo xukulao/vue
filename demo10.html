@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script src="js/vue.js"></script>
+    <script src="bootstrap/jquery.js"></script>
+    <script>
+
+        Vue.filter("addZero",function (data) {
+
+            console.log(data);
+            return data<10?'0'+data:data;
+        })
+        Vue.filter("number",(data,n)=>{
+            return data.toFixed(n);
+        })
+        Vue.filter("date",(data)=>{
+            let d = new Date(data);
+            return d.getFullYear()+"/"+d.getMonth()+"/"+d.getDate();
+        })
+        window.onload = function (e) {
+
+
+            new Vue({
+                el:'#container',
+                data:{
+                   msg:"hello,world"
+                },
+                filters:{
+                    number:(data,n)=>{
+                        return '=='+data.toFixed(n);
+                    }
+                },
+                methods:{
+                    show(){
+                        $.ajax({
+                            method:"GET",
+                            url:"demo.txt",
+                            success:function (response) {
+                                console.log(response);
+                            },
+                            error:function (resp) {
+                                console.log(resp);
+                            }
+                        })
+                    }
+                },
+                created(){
+                    console.log("created");
+
+                }
+            });
+
+
+
+        }
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+<div id="container">
+
+    <p>{{9 | addZero}}</p>
+    <p>{{12.3532|number(2)}}</p>
+    <p>{{Date.now() | date}}</p>
+
+    <button @click="show">ajax get</button>
+</div>
+</body>
+</html>

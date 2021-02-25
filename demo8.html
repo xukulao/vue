@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script>
+
+        window.onload = function (e) {
+
+
+            new Vue({
+                el:'#container',
+                data:{
+                    url:'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1652123795,1945063222&fm=26&gp=0.jpg',
+                    bb:'aa',
+                    dd:'cc',
+                    num:3,
+                    hello:{aa:true,cc:this.num>0},
+                    x:{color:"yellow",fontSize:'100px'},
+                    y:{backgroundColor:'black'}
+                },
+                methods:{
+                    show(){
+                        console.log(this.url);
+                    }
+                }
+            });
+        }
+    </script>
+    <style>
+        .aa{
+            font-size: 20px;
+            color:red;
+        }
+        .cc{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="container">
+    <!--<img v-bind:src="url" @click="show"/>-->
+    <!--<img :src="url" width="100px" v-on:click="show"/>-->
+    <!--<p class="aa">china</p>-->
+    <!--<p :class="aa">china</p>-->
+    <!--<p :class="[bb,dd]">以数组方式获取vue里的样式</p>-->
+    <!--<p :class="{aa:true,cc:false}">以json方式获取style样式</p>-->
+    <!--<p :class="{aa:num>0,cc:false}">以json方式获取style样式</p>-->
+    <!--<p :class="hello">以json方式获取style样式</p>-->
+    <!--<p :style="x">style属性绑定样式</p>-->
+    <p :style="[x,y]">style属性绑定样式</p>
+</div>
+</body>
+</html>

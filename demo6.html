@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload = function () {
+
+            var vm = new Vue({
+                el:'#ix',
+                data:{
+                    nums:[1,2,3,4,5,6],
+                    flag:true,
+                },
+                methods:{
+                   show(){
+                       console.log("show");
+                      // e.stopPropagation();
+                   },
+                   print(e){
+                        //console.log(e);
+                        //console.log(e.target.innerHTML);
+                       console.log("print");
+                   },
+                   write()
+                   {
+                        console.log("write");
+                   },
+                   study(e){
+
+                       console.log("study");
+                       e.preventDefault();
+                   }
+                }
+
+            });
+
+
+
+        }
+    </script>
+</head>
+<body>
+
+<div id="ix">
+   <!--<button v-on:click="show">click</button>-->
+   <!--<button @click="show">click</button>-->
+   <!--<button @click="print($event)">clickMe</button>-->
+
+    <div @click="write">
+        <p @click="print">
+            <!--<button @click="show($event)">clickMe&#45;&#45;事件冒泡和默认行为</button>-->
+            <button @click.stop="show">clickMe--事件冒泡和默认行为</button>
+        </p>
+    </div>
+
+    <a href="#" @click="study($event)">link 阻止默认行为</a>
+</div>
+
+</body>
+</html>
