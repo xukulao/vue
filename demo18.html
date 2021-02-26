@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue实例属性和方法</title>
+    <script src="js/vue.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    {{msg}}
+
+    <p ref="hi">hi</p>
+    <p ref="world">world</p>
+
+    <h1 ref="title">text::{{msg}}</h1>
+</div>
+
+<script>
+
+
+    let vm = new Vue({
+        //el:'.container',
+        data:{
+            msg:"welcome to xx",
+        },
+        name:"jack",
+        age:100,
+        show:function(){
+            console.log(this.name);
+        }
+    }).$mount(".container");
+    //vm.$destroy();
+    vm.msg="hello,world";
+    console.log(vm.$refs.title.textContent);
+    console.log(vm.$refs.title.innerHTML)
+    console.log(vm.$refs.title.innerText)
+
+    vm.$nextTick(function () {
+
+        console.log(vm.$refs.title.textContent);
+        console.log(vm.$refs.title.innerHTML)
+        console.log(vm.$refs.title.innerText)
+    })
+    //console.log(vm.msg);
+    //vm.$mount(".container");
+
+    // console.log(vm.msg);
+    // console.log(vm.$el);
+    // vm.$el.style.color='red';
+    // console.log(vm.$data);
+    // console.log(vm.$options);
+    //
+    // //vm.show();
+    // vm.$options.show();
+    // console.log(vm.$refs);
+    // console.log(vm.$refs.hi);
+    // vm.$refs.hi.innerHTML="china";
+    // console.log(vm.$refs.world.innerHTML);
+</script>
+</body>
+</html>
