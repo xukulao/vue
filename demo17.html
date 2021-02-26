@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <script src="js/vue.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <!--{{msg}}-->
+    <!--{{msg2}}-->
+    <!--<br/>-->
+    <!--{{msg.split(' ').reverse().join('')}}-->
+
+    <!--<br/>-->
+    <!--{{reverseMsg}}-->
+    <!--<br/>-->
+    <button @click="change">update msg</button>
+    <br/>
+    <!--<p>{{num2}}</p>-->
+    <p>{{getNum()}}</p>
+
+
+
+    <button onclick="fn()">test</button>
+
+    <h3>{{num2}}</h3>
+
+    <button @click="change2">update num2</button>
+</div>
+
+<script>
+
+
+    window.vuex = new Vue({
+        el:'.container',
+        data:{
+            msg:"welcome to xx",
+            num:9
+        },
+        computed:{
+            msg2:function () {
+                return "haha";
+            },
+            reverseMsg:function () {
+                return this.msg.split('').reverse().join('');
+            },
+            //num2:function () {
+                //console.log(new Date());
+                //return this.num-2;
+           // },
+            num2:{
+                set(v){
+                    this.num=v;
+                },
+                get(){
+                    return this.num;
+                }
+            }
+        },
+        methods:{
+            change(){
+                //this.msg="i like money";
+
+                this.msg=888;
+            },
+            getNum(){
+                console.log(new Date());
+                return this.num-2;
+            },
+            change2(){
+                this.num2=999;
+            }
+        }
+    });
+
+
+    function show() {
+        return new Date();
+    }
+
+    function fn() {
+        setInterval(function () {
+
+            //window.vuex.num2();
+            window.vuex.getNum();
+        },1000)
+    }
+</script>
+</body>
+</html>
