@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$.set $delete $watch</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="container">
+
+    <button @click="updateData">update</button>
+    <button @click="addData">add</button>
+    <button @click="deleteData">delete</button>
+    <h2>{{user.name}}</h2>
+    <h2>{{user.age}}</h2>
+
+    <input type="text" v-model="user.name">
+    <input type="text" v-model="user.id">
+</div>
+
+<script>
+
+    let vm = new Vue({
+        el:'#container',
+        data:{
+            user:{
+                id:1,
+                name:'tom'
+            }
+        },
+        watch:{
+            // 'user.id':(newv,oldv)=>{
+            //          console.log("数据变化",newv,oldv);
+            // }
+            user:{
+                handler:(newv,oldv)=>{
+                             console.log("数据变化",newv,oldv);
+                },
+                deep:true,
+            }
+        },
+        methods:{
+
+            updateData(){
+                this.user.name="jack";
+            },
+            addData(){
+                //this.user.age=100;
+                //this.$set(this.user,'age',2000);
+                //Vue.set(this.user,'age',50000000000000);
+                if(this.user.age){
+                    this.user.age++;
+                }else{
+                    this.$set(this.user,'age',10);
+                }
+                console.log(this.user);
+            },
+            deleteData(){
+
+                if(this.user.age){
+
+                    //delete this.user.name;
+
+                    //this.$delete(this.user,'age');
+                    Vue.delete(this.user,'age');
+                }
+            }
+        }
+    });
+    vm.$watch('user.name',function (o,n) {
+        console.log(o,n,'change');
+    })
+</script>
+</body>
+</html>

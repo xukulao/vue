@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6 import /export</title>
+    <script type="module">
+
+        import {name,changeName,nums} from "./m4.js";
+
+        console.log(name);
+        changeName("baba");
+        console.log(name);
+
+        nums[0]=100;
+        console.log(nums);
+
+        import {nums as x} from "./m4.js";
+
+        console.log(x);
+
+        import userName from "./m5.js";
+
+        console.log(userName);
+
+        import * as m1 from "./m4.js";
+        console.log(m1.name);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
