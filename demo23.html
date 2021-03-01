@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .diva{
+            width:100px;
+            height:100px;
+            position:absolute;;
+            top:0;
+            left:0;
+            background-color: blue;
+        }
+        .divb{
+            width:100px;
+            height:100px;
+            position:absolute;;
+            top:0;
+            right:0;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+
+    <p class="diva" v-drag></p>
+    <p class="divb" v-drag></p>
+
+</div>
+
+<script>
+
+    Vue.directive('drag',function (el,binding) {
+
+        //console.log(el);
+        el.onmousedown=function (e) {
+            console.log(e.clientX);
+
+            var disx = e.clientX-el.offsetLeft;
+            var disy = e.clientY-el.offsetTop;
+
+            document.onmouseover = function (e) {
+
+                var l = e.clientX-disx;
+                var t = e.clientY-disy;
+                //console.log(111);
+                el.style.left = t+'px';
+                el.style.top = l+'px';
+            }
+
+            document.onmouseup = function (e) {
+
+                document.onmouseover = null;
+                document.onmouseup = null;
+            }
+        }
+    });
+    new Vue({
+        el:'#container',
+        data:{
+
+        },
+        methods:{
+
+        }
+    });
+</script>
+</body>
+</html>

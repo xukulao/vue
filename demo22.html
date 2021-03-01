@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指令定义</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="container">
+
+   <!--<p v-hello>{{name}}</p>-->
+
+    <p v-abc:haha.xyz.china="age">{{name}}</p>
+
+    <p v-china:japanese:2>{{name | myUpper(2)}}</p>
+
+    <button @click="change">update</button>
+</div>
+
+<script>
+
+    Vue.directive("hello",{
+        bind:function () {
+            console.log("bind");
+        },
+        inserted:function () {
+            console.log("inserted");
+        },
+        update:function(){
+            console.log("update");
+        },
+        componentUpdated:function () {
+            console.log("componentUpdated");
+        },
+        unbind:function () {
+            console.log("unbind");
+        }
+    });
+
+    //相当于binding
+    Vue.directive("abc",function (el,binding) {
+
+        console.log(el);
+        console.log(binding);
+
+    });
+
+    let vm = new Vue({
+        el:'#container',
+        data:{
+            name:"japanese",
+            age:100
+        },
+
+        methods:{
+            change(){
+                this.name="jieke";
+            }
+        },
+        filters:{
+          myUpper:function (v,arg) {
+              //console.log(v,arg);
+              let ret = v.toUpperCase().substr(0,arg);
+              console.log(ret);
+              return ret;
+          }
+        },
+        directives:{
+            china:{
+                inserted:function (el,binding) {
+
+                    el.style.color='red';
+                    //el.innerHTML=binding.arg;
+                    //el.innerHTML="japaneseandchina";
+                    console.log(binding);
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
