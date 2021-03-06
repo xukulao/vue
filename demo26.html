@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6 迭代器</title>
+</head>
+<body>
+
+<script>
+
+    class Demo
+    {
+        constructor(){
+            this.names = ["jack","tom","lucy"];
+        }
+        [Symbol.iterator](){
+
+            let position=0;
+            let names = this.names;
+            let iterator = {
+
+                next(){
+
+                    if(position === names.length){
+                        return {
+                            done:true,
+                            value:undefined
+                        }
+                    }else{
+                        return {
+                            done:false,
+                            value:names[position++]
+                        }
+                    }
+                }
+            };
+
+            return iterator;
+        }
+    }
+
+    let obj = new Demo();
+    console.log(obj.names);
+
+    for(let x of obj){
+        console.log(x);
+    }
+
+    console.log([...obj]);
+
+    class Demo2
+    {
+        constructor(){
+            this.names = ["jack","tom","lucy"];
+            this.position=0;
+        }
+        next(){
+
+            if( this.position ===  this.names.length){
+                return {
+                    done:true,
+                    value:undefined
+                }
+            }else{
+                return {
+                    done:false,
+                    value: this.names[ this.position++]
+                }
+            }
+        }
+        return(){
+
+            return {
+                done:true,
+                value:undefined
+            }
+        }
+        [Symbol.iterator](){
+            return this;
+        }
+    }
+
+    console.log("***************");
+    for(let x of new Demo2()){
+        console.log(x);
+
+        if(x.length==3){
+            break;//会调用Demo2 的return 方法
+        }
+    }
+</script>
+</body>
+</html>
