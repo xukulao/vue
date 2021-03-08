@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件及组件间通信</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="test">
+
+    <my-hello>
+
+    </my-hello>
+    {{china}}
+
+</div>
+
+<template id="hello">
+    <div>
+        <p>我是hello父组件</p>
+        <p>访问自己的数据：{{msg}}--{{name}}--{{age}}--{{user.sex}}--{{user.city}} </p>
+        <p>访问子组件的数据：{{sex}}--{{height}}</p>
+        <hr/>
+        <my-world :message="msg" :name="name" :age="age" :user="user" @e-world="getData"></my-world>
+        <hr/>
+
+    </div>
+</template>
+
+<template id="world">
+    <div>
+        <p>我是world子组件</p>
+        <p>访问自己的数据：{{sex}}--{{height}}</p>
+        <p>访问父组件的数据：{{message}}----{{name}}--{{age}}--{{user.sex}}--{{user.city}} --{{text}}</p>
+        <button @click="send">emit发射让父组件能访问自己的数据</button>
+    </div>
+</template>
+<script>
+
+    new Vue({//Root
+
+        el:'#test',
+        data:{
+            china:"中国"
+        },
+        components:{
+            'my-hello':{//MyHello
+                methods:{
+                    getData(sex,height){
+                        this.sex=sex;
+                        this.height=height;//接受子组件发射过来的数据
+                    }
+                },
+                data(){
+                    return {
+                        msg:"hello",
+                        name:"jack",
+                        age:18,
+                        sex:'',
+                        height:0,
+                        user:{
+                            sex:1,
+                            city:'shanghai'
+                        }
+                    }
+                },
+                template:'#hello',
+                components: {
+                    'my-world':{
+                        data(){
+                            return {
+                                sex:'male',
+                                height:180
+                            }
+                        },
+                        template:'#world',
+                        //props:['message','age','name','user'],//得到父组件传递过来的数据，此组件通过在父组件下属性绑定传递
+                        props:{
+                            message:String,
+                            //age:Number,
+                            age:{
+                              default:1000,
+                              require:true,
+                              validator:function (value) {
+                                  return value>0;
+                              }
+                            },
+                            name:String,
+                            //user:Object,
+                            user:{
+                                type:Object,
+                                // default:{
+                                //     sex:1,
+                                //     city:'北京'
+                                // }
+                                default:function () {
+                                    return {
+                                        sex:1,
+                                        city:'北京'
+                                    }
+                                }
+                            },
+                            text:{
+                                type:Number,
+                                default:101,
+                            }
+                        },
+                        methods:{
+                            send(){
+                                //console.log(this);
+                                //发射数组
+                                this.$emit("e-world",this.sex,this.height);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
