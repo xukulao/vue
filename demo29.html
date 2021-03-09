@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单向数据流</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="con">
+    <h3>Root component {{msg}}</h3>
+    <input type="text" v-model="msg"/>
+    <h3>父组件：{{user.age}}</h3>
+    <hr/>
+    <hello :msg.sync="msg" :user="user"></hello>
+</div>
+
+<template id="hello">
+    <div>
+        <!--<h3>father component {{message}}</h3>-->
+        <h3>father component {{msg}}</h3>
+        <h3>子组件：{{user.age}}</h3>
+        <button @click="change">change</button>
+    </div>
+</template>
+
+<script>
+
+    new Vue({
+        el:'#con',
+        data:{
+            msg:"china",
+            user:{
+                age:101
+            }
+        },
+        components:{
+            'hello':{
+                template:'#hello',
+                props:['msg','user'],
+                data(){
+                    return {
+                        message:this.msg
+                    }
+                },
+                methods:{
+                    change(){
+                        //this.message = 'haha';
+                        //this.$emit("update:msg","hahaba");
+                        this.user.age=888;
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6生成器</title>
+</head>
+<body>
+
+
+<script>
+
+    function *genx()
+    {
+        yield 1;
+        yield 2;
+        return 888;
+    }
+
+    let x = genx();
+    console.log(x.next());
+    console.log(x.next());
+    console.log(x.next());
+    console.log(x.next());
+    console.log(x.next());
+    console.log(x.next());
+
+    let y = function *() {
+
+        for (let j of [1,2,3,4,5]){
+            yield j;
+        }
+    }
+    let obj1 = y();
+    console.log(obj1.next());
+    console.log(obj1.next());
+    console.log(obj1.next());
+    console.log(obj1.next());
+    console.log(obj1.next());
+    console.log(obj1.next());
+
+    let obj2 = {
+        *gen(){
+            yield "hello"
+        }
+    };
+    console.log(obj2.gen().next());
+
+    class Myclass{
+        *gen()
+        {
+            yield "class x";
+        }
+    }
+    let obj8 = new Myclass();
+    console.log(obj8.gen().next());
+
+    function *gen8() {
+        yield "a",
+            yield genx(),
+            yield "b";
+    }
+
+    console.log("****************");
+    let z = gen8();
+    // for (let x of z){
+    //     console.log(x);
+    // }
+    console.log([...z]);
+</script>
+</body>
+</html>
