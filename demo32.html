@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非父子组件间通信</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="con">
+    <my-a></my-a>
+    <my-b></my-b>
+    <my-c></my-c>
+</div>
+
+<template id="a">
+    <div>
+        <h2>a 组件{{name}}</h2>
+        <button @click="send"> 发送数据给C组件</button>
+    </div>
+</template>
+<template id="b">
+    <div>
+        <h2>b 组件{{age}}</h2>
+    </div>
+</template>
+<template id="c">
+    <div>
+        <h2>c 组件 {{name}}--{{age}}</h2>
+    </div>
+</template>
+<script>
+
+    var event = new Vue();
+    var A = {
+        template:'#a',
+        data(){
+            return {
+                name:"jack"
+            }
+        },
+        methods:{
+            send(){
+                event.$emit('data-a',this.name);
+            }
+        }
+    };
+    var B = {
+        template:'#b',
+        data(){
+            return {
+                age:100
+            }
+        },
+        mounted() {
+
+            event.$emit("data-b",this.age);
+        }
+    };
+    var C = {
+        template:'#c',
+        data(){
+            return {
+                name:'',
+                age:0
+            }
+        },
+        mounted(){
+
+            event.$on("data-a",name=>{
+                this.name = name;
+            })
+
+            event.$on("data-b",age=>{
+                this.age=age;
+            })
+        }
+    };
+    new Vue({
+
+        el:'#con',
+        components:{
+            'my-a':A,
+            'my-b':B,
+            'my-c':C
+        }
+    });
+</script>
+</body>
+</html>

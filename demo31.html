@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6 生成器</title>
+</head>
+<body>
+
+<script>
+
+    function *gen(name)
+    {
+        console.log("name="+name);
+
+        let newn = yield name;
+
+        console.log("newname="+newn);
+
+        let h = yield "hello";
+        console.log(h);
+
+        console.log(`${yield}`);
+    }
+
+    let x = gen("lucy");
+    console.log(x.next("haha"));
+    console.log(x.next("baba"));
+    console.log(x.next("test"));
+
+    console.log("***************************");
+    function *gen1() {
+
+        try{
+            yield 1;
+            yield 2;
+            yield 3;
+            yield 4;
+        }catch(e){
+            console.log("now:"+e);
+        }
+    }
+    let y = gen1();
+    console.log(y.next());
+    console.log(y.next());
+    //y.return();
+    y.throw(new Error("i am error "));
+    console.log(y.next());
+    console.log(y.next());
+
+
+</script>
+</body>
+</html>
