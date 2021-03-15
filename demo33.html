@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slot</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+
+<div id="con">
+
+    <hello :msg="msg">
+        <ul slot="s1">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <ol slot="s2">
+            <li>a</li>
+            <li>b</li>
+            <li>c</li>
+        </ol>
+    </hello>
+</div>
+
+<template id="hello">
+    <div>
+        <slot name="s1"></slot>
+        <p>{{msg}}</p>
+       <slot name="s2"></slot>
+    </div>
+</template>
+<script>
+
+    new Vue({
+        el:'#con',
+        data:{
+            msg:"hello"
+        },
+        components:{
+            'hello':{
+                template:'#hello',
+                props:['msg']
+            }
+        }
+    });
+</script>
+</body>
+</html>

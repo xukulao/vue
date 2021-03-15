@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue router</title>
+
+    <!--<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>-->
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+
+
+<div id="con">
+
+    <div>
+
+        <router-link to="/home">Home</router-link>
+        <router-link to="/news">news</router-link>
+    </div>
+
+    <div>
+        <router-view></router-view>
+    </div>
+
+</div>
+
+<script>
+
+    const router = new VueRouter({
+        mode:'history',
+        routes:[
+            {
+                path:'/home',
+                component:{
+                    template:'<h2>I am Home page</h2>'
+                }
+            },
+            {
+                path:'/news',
+                component:{
+                    template:'<h2>I am news page</h2>'
+                }
+            }
+        ]
+    });
+    new Vue({
+        el:'#con',
+        router:router
+    });
+
+
+    let p = new Promise((resolve,reject)=>{
+
+        resolve("成功了");
+        //reject("错误了");
+    }).then((info)=>{
+
+        console.log("success:"+info);
+    },(error)=>{
+       // console.log("fail:"+error);
+    })
+</script>
+</body>
+</html>
