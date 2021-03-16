@@ -16,19 +16,46 @@
     <div>
 
         <router-link to="/home">Home</router-link>
-        <router-link to="/news">news</router-link>
+        <router-link to="/users">用户</router-link>
     </div>
 
     <div>
         <router-view></router-view>
     </div>
-
+    <button @click="push">切换路由</button>
+    <button @click="replace">replace切换路由</button>
 </div>
 
+<template id="users">
+    <div>
+        <h2>用户</h2>
+        <ul>
+            <router-link to="/users/login?name=jack&pwd=123456" tag="li">登录</router-link>
+            <router-link to="/users/register/tom/888" tag="li">注册</router-link>
+        </ul>
+        <div>
+            <router-view></router-view>
+            <router-view></router-view>
+        </div>
+    </div>
+
+
+</template>
+
+<template id="login">
+    <div>
+        <h1>用户登录 {{$route.query}}</h1>
+    </div>
+</template>
+<template id="register">
+    <div>
+        <h1>用户注册 {{$route.params}}</h1>
+    </div>
+</template>
 <script>
 
     const router = new VueRouter({
-        mode:'history',
+        //mode:'history',
         routes:[
             {
                 path:'/home',
@@ -37,16 +64,28 @@
                 }
             },
             {
-                path:'/news',
+                path:'/users',
                 component:{
-                    template:'<h2>I am news page</h2>'
-                }
+                    template:'#users'
+                },
+                children:[
+                    {path:"login",component:{template:"#login"}},
+                    {path:"register/:userName/:pwd",component:{template:"#register"}},
+                ]
             }
         ]
     });
     new Vue({
         el:'#con',
-        router:router
+        router:router,
+        methods:{
+            push(){
+                router.push({path:"/home"});
+            },
+            replace(){
+                router.replace({path:"/users"});
+            }
+        }
     });
 
 
