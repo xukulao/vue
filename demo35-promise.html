@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    let obj = new Promise((resolve,reject)=>{
+
+        //resolve(111);
+        reject("baba");
+    });
+
+    obj.then((info)=>{
+
+        console.log("then reslove:"+info);
+    },(error)=>{
+
+        console.log("then error:"+error);
+    })
+
+    obj.catch(function (error) {
+
+        console.log("catch error:"+error);
+    })
+    
+    let x = {
+        then:function (info) {
+
+            console.log("x obj then func:"+info);
+        }
+    }
+
+    let y = Promise.resolve(x);
+
+    let z = Promise.resolve();
+    z.then(()=>{console.log("promoise.resolve.then(func z)")});
+
+
+    let a = Promise.resolve("china");
+    a.then(info=>{console.log("a:"+info)});
+
+    let b = Promise.reject("japanese");
+    b.catch(error=>{console.log("b:"+error)});
+
+
+    function getPromise1() {
+
+        return new Promise((resolve,reject)=>{
+
+            setTimeout(()=>{
+                resolve("promise1 run 完成");
+            },1000)
+        })
+    }
+    function getPromise2() {
+
+        return new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve("promise2 run 完成");
+            },2000)
+        })
+    }
+
+    function getPromise3() {
+
+        return new Promise((resolve,reject)=>{
+
+            setTimeout(()=>{
+                resolve("promise3 run reject 完成");
+            })
+        },3000)
+    }
+
+    //Promise.all([getPromise1(),getPromise2(),getPromise3()]).then(data=>{
+    Promise.race([getPromise1(),getPromise2(),getPromise3()]).then(data=>{
+        console.log("成功："+data)
+    },error=>{
+        console.log("失败："+error);
+    })
+</script>
+</body>
+</html>

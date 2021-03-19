@@ -2,3 +2,6 @@
 node_modules/
 package.json
 bootstrap
+vue-demo/node_modules/
+vue-demo1/node_modules/
+webpack-demo/node_modules/
