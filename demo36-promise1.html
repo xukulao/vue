@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise应用</title>
+</head>
+<body>
+
+
+<script>
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("get","package.json");
+
+    xhr.onreadystatechange=function () {
+
+        if(xhr.readyState==4){
+
+            if (xhr.status==200){
+
+                console.log(xhr.responseText);
+            } else{
+                console.log("请求错误");
+            }
+        }
+    }
+    xhr.send();
+
+
+    function getData(url) {
+        return new Promise((resolve,reject)=>{
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("get",url);
+
+            xhr.onreadystatechange=function () {
+
+                if(xhr.readyState==4){
+
+                    if (xhr.status==200){
+
+                        resolve(xhr.responseText);
+                    } else{
+                        reject("请求错误");
+                    }
+                }
+            }
+            xhr.send();
+        })
+    }
+
+    console.log("*******************************\r\n");
+    let http = getData("package.json");
+    http.then((data)=>{
+
+        let resp = JSON.parse(data);
+        console.log(resp);
+        return getData("package-lock.json?a"+resp.dependencies.vue);
+    }).then((data)=>{
+        let resp = JSON.parse(data);
+        console.log(resp);
+    })
+</script>
+</body>
+</html>

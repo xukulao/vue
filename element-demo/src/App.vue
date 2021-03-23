@@ -3,11 +3,13 @@
   <HelloWorld msg="element UI 组件使用"/>
   <hr/>
   <DatePicker :date="date"></DatePicker>
+  <login></login>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import DatePicker from './components/DatePicker.vue'
+
 export default {
   name: 'App',
   data(){
