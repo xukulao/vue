@@ -7,7 +7,9 @@ import { createStore } from 'vuex'
 const store = createStore({
     state () {
         return {
-            count: 8
+            count: 8,
+            name:'',
+            age:0
         }
     },
     // getters:{
@@ -26,6 +28,27 @@ const store = createStore({
     mutations: {
         increment (state) {
             state.count++
+        },
+        descrment(state){
+            state.count--;
+        },
+        descrmentAsync(state){
+
+            new Promise((resolve)=>{
+
+                setTimeout(()=>{
+                    resolve();
+                },2000);
+            }).then(()=>{
+                state.count++
+            }).catch(()=>{
+                console.log("async error");
+            })
+        },
+        sendData(state){
+            console.log("提交数据");
+            console.log(state.name);
+            console.log(state.age);
         }
     }
 })

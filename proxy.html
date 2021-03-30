@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代理</title>
+</head>
+<body>
+
+
+<script>
+
+    let obj = {
+        name:"tom"
+    }
+    let handler = {
+        get(target,prop){
+            console.log("target:"+target);
+            console.log("prop:"+prop);
+            return Reflect.get(target,prop).toUpperCase();
+        }
+    };
+
+    let objProxy = new Proxy(obj,handler);
+    console.log(objProxy.name);
+    
+    let x = {
+        name:"jack"
+    }
+    
+    function test() {
+        return this.name;
+    }
+    console.log(test.apply(x));
+
+    let testProxy = new Proxy(x,{
+        apply(target, thisArg, argArray) {
+            return Reflect.apply(target,thisArg,argArray);
+        }
+    });
+
+    console.log(testProxy.apply(x));
+</script>
+</body>
+</html>

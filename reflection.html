@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>反射</title>
+</head>
+<body>
+
+
+<script>
+
+    function getInfo() {
+        return this.name;
+    }
+    let user = {
+        name:"jack"
+    }
+
+    console.log(Reflect.apply(getInfo,user,[]));
+
+    function users(name) {
+        this.name=name;
+    }
+    console.log(Reflect.construct(users,["tom"]));
+
+    let obj={
+
+    };
+
+    Reflect.defineProperty(obj,"name",{
+        value:"lucy",
+        configurable:true,
+        enumerable:true,
+        writable:true
+    })
+    console.log(obj);
+
+    console.log(Reflect.deleteProperty(obj,"name"));
+
+    let obj2 = {
+        age:100,
+        set address(v){
+            console.log(this);
+        }
+    };
+
+    Reflect.set(obj2,"age",8888);
+    console.log(obj2);
+
+    Reflect.set(obj2,"address","beijing",{name:"baba"});
+
+    console.log(Reflect.has(obj2,"age"));
+
+    console.log(Reflect.get(obj2,"age"));
+
+    console.log(Reflect.isExtensible(obj2));
+</script>
+</body>
+</html>

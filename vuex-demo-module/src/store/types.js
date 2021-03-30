@@ -1,0 +1,8 @@
+
+const INCREMENT='INCREMENT'
+const DESCRMENT='DESCRMENT'
+
+export default {
+    INCREMENT,
+    DESCRMENT
+}
